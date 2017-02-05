@@ -34,30 +34,23 @@ class CellNode: ASCellNode {
     
     init(imageURL: URL?, topLeft: String, topRight: String, bottomRight: String, bottomLeft: String) {
         super.init()
-        let paragraph = NSMutableParagraphStyle()
-//        paragraph.minimumLineHeight = 27
-//        paragraph.maximumLineHeight = 27
         imageButtonNode.addTarget(self, action: #selector(onImageTapped), forControlEvents: .touchUpInside)
         imageNode.style.preferredSize = CGSize(width: 100, height: 100)
         imageNode.shouldCacheImage = false
         imageNode.setURL(imageURL, resetToDefault: true)
         textNodeTopLeft.attributedText = NSAttributedString(string: topLeft,
                                                             attributes: [ NSForegroundColorAttributeName: UIColor.black,
-                                                                          NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17),
-                                                                          NSParagraphStyleAttributeName : paragraph])
+                                                                          NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17)])
         
         textNodeTopRight.attributedText = NSAttributedString(string: topRight,
                                                              attributes: [ NSForegroundColorAttributeName: UIColor.white,
                                                                            NSFontAttributeName: UIFont.systemFont(ofSize: 19)])
         textNodeBottomLeft.attributedText = NSAttributedString(string: bottomLeft,
                                                                attributes: [ NSForegroundColorAttributeName: UIColor.black,
-                                                                             NSFontAttributeName: UIFont.italicSystemFont(ofSize: 17),
-                                                                             NSParagraphStyleAttributeName : paragraph])
+                                                                             NSFontAttributeName: UIFont.italicSystemFont(ofSize: 17)])
         textNodeBottomRight.attributedText = NSAttributedString(string: bottomRight,
                                                                 attributes: [ NSForegroundColorAttributeName: UIColor.white,
-                                                                              NSFontAttributeName: UIFont.italicSystemFont(ofSize: 17),
-                                                                              NSParagraphStyleAttributeName : paragraph])
-//        imageNode.delegate = self
+                                                                              NSFontAttributeName: UIFont.italicSystemFont(ofSize: 17)])
         automaticallyManagesSubnodes = true
     }
     
@@ -77,6 +70,7 @@ class CellNode: ASCellNode {
         
         let imageFraction: CGFloat = isImageStretched ? 0.8 : 0.4
         textNodeTopLeft.style.flexBasis = .fraction(1.0 - imageFraction)
+        textNodeTopLeft.style.flexShrink = 1.0
         let imageButtonSpec = ASOverlayLayoutSpec(child: imageNode,
                                                   overlay: imageButtonNode)
         let ratioSpec = ASRatioLayoutSpec(ratio: 1.0, child: imageButtonSpec)
@@ -101,8 +95,7 @@ class CellNode: ASCellNode {
 
 
         let insetStack = ASInsetLayoutSpec()
-        insetStack.insets = UIEdgeInsets(top: 5, left: 0, bottom: 0,
-                                         right: stack.spacing * CGFloat((stack.children?.count ?? 1) - 1) + 5)
+        insetStack.insets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
         insetStack.child = backgroundSpec
         
         return insetStack
@@ -113,16 +106,5 @@ class CellNode: ASCellNode {
         setNeedsLayout()
     }
     
-}
-
-extension CellNode: ASNetworkImageNodeDelegate {
-    
-//    func imageNode(_ imageNode: ASNetworkImageNode, didLoad image: UIImage) {
-//        let circularImage = image.makeCircularImage(size: CGSize(width: 200, height: 200), borderWidth: 0)
-//        imageNode.image = circularImage
-//        imageNode.style.flexBasis = ASDimension(unit: .points, value: circularImage.size.width)
-//        imageNode.style.maxSize = circularImage.size
-//        setNeedsLayout()
-//    }
 }
 
