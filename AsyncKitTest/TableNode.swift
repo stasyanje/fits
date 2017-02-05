@@ -68,7 +68,7 @@ class CellNode: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        let imageFraction: CGFloat = isImageStretched ? 0.8 : 0.4
+        let imageFraction: CGFloat = isImageStretched ? 1.0 : 0.4
         textNodeTopLeft.style.flexBasis = .fraction(1.0 - imageFraction)
         textNodeTopLeft.style.flexShrink = 1.0
         let imageButtonSpec = ASOverlayLayoutSpec(child: imageNode,
@@ -77,14 +77,15 @@ class CellNode: ASCellNode {
         ratioSpec.style.flexBasis = .fraction(imageFraction)
         
         let stack = ASStackLayoutSpec.horizontal()
+        stack.spacing = 10
         stack.alignItems = .center
         stack.justifyContent = .start
         stack.verticalAlignment = .verticalAlignmentTop
-        stack.children = [ratioSpec, textNodeTopLeft]
+        stack.children = isImageStretched ? [ratioSpec] : [ratioSpec, textNodeTopLeft]
         
         let verticalStack = ASStackLayoutSpec.vertical()
         verticalStack.spacing = 10
-        verticalStack.children = [stack, textNodeBottomLeft]
+        verticalStack.children = isImageStretched ? [stack, textNodeTopLeft, textNodeBottomLeft] : [stack, textNodeBottomLeft]
         
         let innerInsetStack = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5),
                                                 child: verticalStack)
@@ -95,7 +96,7 @@ class CellNode: ASCellNode {
 
 
         let insetStack = ASInsetLayoutSpec()
-        insetStack.insets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
+        insetStack.insets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
         insetStack.child = backgroundSpec
         
         return insetStack
