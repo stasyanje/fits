@@ -36,7 +36,6 @@ class CellNode: ASCellNode {
         super.init()
         imageButtonNode.addTarget(self, action: #selector(onImageTapped), forControlEvents: .touchUpInside)
         imageNode.style.preferredSize = CGSize(width: 100, height: 100)
-        imageNode.shouldCacheImage = false
         imageNode.setURL(imageURL, resetToDefault: true)
         textNodeTopLeft.attributedText = NSAttributedString(string: topLeft,
                                                             attributes: [ NSForegroundColorAttributeName: UIColor.black,
