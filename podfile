@@ -1,0 +1,8 @@
+
+
+target ‘AsyncKitTest’ do
+  use_frameworks!
+  pod ‘LoremIpsum’
+  pod ‘AsyncDisplayKit’
+end
+

@@ -1,0 +1,35 @@
+PODS:
+  - AsyncDisplayKit (2.0.2):
+    - AsyncDisplayKit/PINRemoteImage (= 2.0.2)
+  - AsyncDisplayKit/Core (2.0.2)
+  - AsyncDisplayKit/PINRemoteImage (2.0.2):
+    - AsyncDisplayKit/Core
+    - PINRemoteImage/iOS (= 3.0.0-beta.7)
+    - PINRemoteImage/PINCache
+  - LoremIpsum (1.0.0)
+  - PINCache (3.0.1-beta.2):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.2)
+    - PINCache/Core (= 3.0.1-beta.2)
+  - PINCache/Arc-exception-safe (3.0.1-beta.2):
+    - PINCache/Core
+  - PINCache/Core (3.0.1-beta.2)
+  - PINRemoteImage/Core (3.0.0-beta.7)
+  - PINRemoteImage/iOS (3.0.0-beta.7):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.0-beta.7):
+    - PINCache (= 3.0.1-beta.2)
+    - PINRemoteImage/Core
+
+DEPENDENCIES:
+  - AsyncDisplayKit
+  - LoremIpsum
+
+SPEC CHECKSUMS:
+  AsyncDisplayKit: 5c22daa1499c530fcc3e5589ddb201bf1176842b
+  LoremIpsum: 9029c55d36501b2ee0b05cc9ecda11d3a0479160
+  PINCache: 6d273a6e0754bd26e3f12a38a90dde73cc6a42b2
+  PINRemoteImage: ff63baf185088530db6cfa41cb665e2b5126b5c3
+
+PODFILE CHECKSUM: ecceb86e4e24a8a91cf98169f05f92eda4cf9bbe
+
+COCOAPODS: 1.2.0
