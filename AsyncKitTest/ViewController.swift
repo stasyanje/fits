@@ -98,19 +98,24 @@ class ViewController: ASViewController<ASDisplayNode> {
             items.append(item)
         }
         DispatchQueue.main.async {
-            self.insert(items: items)
-            completion()
+            self.insert(items: items) {
+                completion()
+            }
         }
     }
     
-    fileprivate func insert(items: [Item]) {
+    fileprivate func insert(items: [Item], completion: @escaping () -> Void) {
         var indexPaths = [IndexPath]()
         for i in 0..<items.count {
             let indexPath = IndexPath(row: self.items.count + i, section: 0)
             indexPaths.append(indexPath)
         }
-        self.items.append(contentsOf: items)
-        tableNode.insertRows(at: indexPaths, with: .fade)
+        tableNode.performBatch(animated: false, updates: { [weak self] in
+            self?.items.append(contentsOf: items)
+            self?.tableNode.insertRows(at: indexPaths, with: .none)
+        }) { _ in
+            completion()
+        }
     }
 }
 

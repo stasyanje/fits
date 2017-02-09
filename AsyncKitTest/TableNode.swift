@@ -35,30 +35,21 @@ class CellNode: ASCellNode {
     
     init(imageURL: URL?, topTitle: String, bottomTitle: String) {
         super.init()
-        imageButtonNode.addTarget(self, action: #selector(onImageTapped), forControlEvents: .touchUpInside)
-        imageNode.style.preferredSize = CGSize(width: 100, height: 100)
+
+        automaticallyManagesSubnodes = true
+        
+        imageNode.setURL(imageURL, resetToDefault: true)
+        
         var currentTextNode = 0
         let titles = [topTitle, bottomTitle]
         [textNodeTopLeft,
          textNodeBottomLeft,
-        ].forEach {
+         ].forEach {
             self.configureTextNode(textNode: $0, text: titles[currentTextNode])
             currentTextNode += 1
         }
-        topContentNode.backgroundColor = backColor
-        imageNode.setURL(imageURL, resetToDefault: true)
-        automaticallyManagesSubnodes = true
-        selectionStyle = .none
-        topContentNode.cornerRadius = 5.0
-        imageNode.contentMode = .scaleAspectFill
-        imageNode.placeholderColor = holderColor
-        imageNode.clipsToBounds = true
-        imageNode.cornerRadius = 3.0
-        topContentNode.placeholderFadeDuration = 0.2
-        imageNode.placeholderFadeDuration = 0.2
-        textNodeTopLeft.placeholderFadeDuration = 0.2
-        textNodeBottomLeft.placeholderFadeDuration = 0.2
     }
+    
     
     private func configureTextNode(textNode: ASTextNode, text: String) {
         textNode.placeholderColor = holderColor
@@ -66,6 +57,28 @@ class CellNode: ASCellNode {
                                                      attributes: [ NSForegroundColorAttributeName: UIColor.black,
                                                                    NSFontAttributeName: UIFont.systemFont(ofSize: 19)])
         textNode.backgroundColor = backColor
+    }
+    
+    override func didLoad() {
+        super.didLoad()
+        selectionStyle = .none
+        
+        topContentNode.cornerRadius = 5.0
+        topContentNode.backgroundColor = backColor
+        topContentNode.placeholderFadeDuration = 0.2
+
+        imageNode.contentMode = .scaleAspectFill
+        imageNode.placeholderColor = holderColor
+        imageNode.clipsToBounds = true
+        imageNode.cornerRadius = 3.0
+        imageNode.placeholderFadeDuration = 0.2
+        imageNode.style.preferredSize = CGSize(width: 100, height: 100)
+
+        imageButtonNode.addTarget(self, action: #selector(onImageTapped), forControlEvents: .touchUpInside)
+        
+        textNodeTopLeft.placeholderFadeDuration = 0.2
+        textNodeBottomLeft.placeholderFadeDuration = 0.2
+
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
